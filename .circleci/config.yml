@@ -1,0 +1,50 @@
+version: 2.1
+
+executors:
+  nodejs:
+    docker:
+      - image: circleci/node:12.13.1-stretch
+
+commands:
+  setup:
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restoring Cache - Yarn
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+jobs:
+  deploy:
+    executor:
+      name: nodejs
+    parameters:
+      stage:
+        type: enum
+        enum: [production]
+    steps:
+      - setup
+      - run:
+          name: Deploy
+          command: npx sls deploy --stage << parameters.stage >>
+      - store_artifacts:
+          path: .serverless
+          destination: serverless
+
+workflows:
+  version: 2
+  deploy_production:
+    jobs:
+      - deploy:
+          name: deploy_production
+          stage: production
+          filters:
+            branches:
+              only:
+                - main
