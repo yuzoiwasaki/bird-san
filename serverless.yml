@@ -1,5 +1,7 @@
 service: bird-san
+
 frameworkVersion: '2'
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -8,6 +10,7 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
+
 functions:
   hello:
     handler: handler.hello
