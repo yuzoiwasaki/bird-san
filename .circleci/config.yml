@@ -39,10 +39,10 @@ jobs:
 
 workflows:
   version: 2
-  deploy_production:
+  deploy:
     jobs:
       - deploy:
-          name: deploy_production
+          name: deploy
           stage: production
           filters:
             branches:
