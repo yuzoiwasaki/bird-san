@@ -1,0 +1,21 @@
+{
+  "name": "bird-san",
+  "version": "1.0.0",
+  "description": "Slack app for earlybirdslounge",
+  "main": "handler.js",
+  "dependencies": {
+    "serverless": "^2.28.7"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuzoiwasaki/bird-san.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuzoiwasaki/bird-san/issues"
+  },
+  "homepage": "https://github.com/yuzoiwasaki/bird-san#readme"
+}
