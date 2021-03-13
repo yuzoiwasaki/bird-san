@@ -19,3 +19,10 @@ functions:
       - http:
           path: /check-in
           method: post
+  check_out:
+    handler: handler.check_out
+    timeout: 10
+    events:
+      - http:
+          path: /check-out
+          method: post
