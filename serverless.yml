@@ -12,9 +12,10 @@ provider:
     shouldStartNameWithService: true
 
 functions:
-  hello:
-    handler: handler.hello
+  check_in:
+    handler: handler.check_in
+    timeout: 10
     events:
       - http:
-          path: /hello
-          method: get
+          path: /check-in
+          method: post
