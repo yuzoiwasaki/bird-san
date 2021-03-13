@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/yuzoiwasaki/bird-san/tree/main.svg?style=svg)](https://circleci.com/gh/yuzoiwasaki/bird-san/tree/main)
+
 # bird-san
 
 Slack app for [earlybirdslounge](https://earlybirdslounge.slack.com)
