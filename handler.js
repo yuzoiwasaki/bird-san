@@ -53,7 +53,7 @@ function getGreetingMessage() {
   if (hour >= 4 && hour < 12) {
     message = 'おはようございます！'
   } else if (hour >= 12 && hour < 18) {
-    message = 'こんにちは!'
+    message = 'こんにちは！'
   } else {
     message = 'こんばんは！'
   }
