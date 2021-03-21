@@ -3,7 +3,7 @@
 require('date-utils')
 const qs = require('querystring')
 
-const slack_user_map = {
+const SLACK_USER_MAP = {
   'U01GPV72XQD': 'いわさき',
   'U01HGSXBLUQ': 'ちなつ',
   'U01GLB6C7JA': 'けん',
@@ -23,7 +23,7 @@ module.exports.check_in = async (event) => {
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": slack_user_map[userId] + "さん、" + greetingMessage + ":hatched_chick:"
+        "text": SLACK_USER_MAP[userId] + "さん、" + greetingMessage + ":hatched_chick:"
       }
     )
   };
@@ -38,7 +38,7 @@ module.exports.check_out = async (event) => {
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": slack_user_map[userId] + "さん、お疲れ様でした！:clock9:"
+        "text": SLACK_USER_MAP[userId] + "さん、お疲れ様でした！:clock9:"
       }
     )
   };
