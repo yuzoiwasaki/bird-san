@@ -1,5 +1,6 @@
 'use strict';
 
+require('date-utils')
 const qs = require('querystring')
 
 const slack_user_map = {
@@ -15,13 +16,14 @@ const slack_user_map = {
 module.exports.check_in = async (event) => {
   const parsed_body = qs.parse(event.body)
   const user_id = parsed_body['user_id']
+  const greeting_message = get_greeting_message()
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": slack_user_map[user_id] + "さん、おはようございます！:hatched_chick:"
+        "text": slack_user_map[user_id] + "さん、" + greeting_message + ":hatched_chick:"
       }
     )
   };
@@ -41,3 +43,18 @@ module.exports.check_out = async (event) => {
     )
   };
 };
+
+function get_greeting_message() {
+  let message
+  const hour = new Date().toFormat("HH24")
+
+  if (hour >= 4 && hour < 12) {
+    message = 'おはようございます！'
+  } else if (hour >= 12 && hour < 18) {
+    message = 'こんにちは!'
+  } else {
+    message = 'こんばんは！'
+  }
+
+  return message
+}
