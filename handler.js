@@ -47,6 +47,7 @@ module.exports.check_out = async (event) => {
 function get_greeting_message() {
   let message
   const hour = new Date().toFormat("HH24")
+  console.log(hour)
 
   if (hour >= 4 && hour < 12) {
     message = 'おはようございます！'
