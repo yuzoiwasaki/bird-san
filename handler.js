@@ -14,40 +14,41 @@ const slack_user_map = {
 }
 
 module.exports.check_in = async (event) => {
-  const parsed_body = qs.parse(event.body)
-  const user_id = parsed_body['user_id']
-  const greeting_message = get_greeting_message()
+  const parsedBody = qs.parse(event.body)
+  const userId = parsedBody['user_id']
+  const greetingMessage = getGreetingMessage()
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": slack_user_map[user_id] + "さん、" + greeting_message + ":hatched_chick:"
+        "text": slack_user_map[userId] + "さん、" + greetingMessage + ":hatched_chick:"
       }
     )
   };
 };
 
 module.exports.check_out = async (event) => {
-  const parsed_body = qs.parse(event.body)
-  const user_id = parsed_body['user_id']
+  const parsedBody = qs.parse(event.body)
+  const userId = parsedBody['user_id']
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": slack_user_map[user_id] + "さん、お疲れ様でした！:clock9:"
+        "text": slack_user_map[userId] + "さん、お疲れ様でした！:clock9:"
       }
     )
   };
 };
 
-function get_greeting_message() {
+function getGreetingMessage() {
+  const TIMEZONE_OFFSET = 9
+  const hour = new Date().toFormat("HH24") + TIMEZONE_OFFSET
+
   let message
-  const hour = new Date().toFormat("HH24")
-  console.log(hour)
 
   if (hour >= 4 && hour < 12) {
     message = 'おはようございます！'
