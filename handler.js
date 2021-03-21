@@ -46,7 +46,7 @@ module.exports.check_out = async (event) => {
 
 function getGreetingMessage() {
   const TIMEZONE_OFFSET = 9
-  const hour = new Date().toFormat("HH24") + TIMEZONE_OFFSET
+  const hour = Number(new Date().toFormat("HH24")) + TIMEZONE_OFFSET
 
   let message
 
