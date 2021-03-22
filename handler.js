@@ -1,7 +1,7 @@
 'use strict';
 
 const qs = require('querystring')
-const moment = require("moment")
+const moment = require('moment')
 require('moment-timezone')
 
 const SLACK_USER_MAP = {
@@ -47,8 +47,7 @@ module.exports.check_out = async (event) => {
 
 function getGreetingMessage() {
   moment.tz.setDefault('Asia/Tokyo')
-  const hour = moment().format("HH")
-  console.log(hour)
+  const hour = Number(moment().format('HH'))
 
   let message
 
