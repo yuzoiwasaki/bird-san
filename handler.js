@@ -1,7 +1,7 @@
 'use strict';
 
-require('date-utils')
 const qs = require('querystring')
+const moment = require("moment")
 
 const SLACK_USER_MAP = {
   'U01GPV72XQD': 'いわさき',
@@ -45,8 +45,9 @@ module.exports.check_out = async (event) => {
 };
 
 function getGreetingMessage() {
-  const TIMEZONE_OFFSET = 9
-  const hour = Number(new Date().toFormat("HH24")) + TIMEZONE_OFFSET
+  moment.locale('ja')
+  const hour = moment().format("HH")
+  console.log(hour)
 
   let message
 
