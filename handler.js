@@ -2,6 +2,7 @@
 
 const qs = require('querystring')
 const moment = require("moment")
+require('moment-timezone')
 
 const SLACK_USER_MAP = {
   'U01GPV72XQD': 'いわさき',
@@ -45,7 +46,7 @@ module.exports.check_out = async (event) => {
 };
 
 function getGreetingMessage() {
-  moment.locale('ja')
+  moment.tz.setDefault('Asia/Tokyo')
   const hour = moment().format("HH")
   console.log(hour)
 
