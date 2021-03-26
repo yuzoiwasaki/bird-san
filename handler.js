@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const qs = require('querystring')
 const moment = require('moment')
@@ -27,8 +27,8 @@ module.exports.check_in = async (event) => {
         "text": SLACK_USER_MAP[userId] + "さん、" + greetingMessage + ":hatched_chick:"
       }
     )
-  };
-};
+  }
+}
 
 module.exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
@@ -43,8 +43,8 @@ module.exports.check_out = async (event) => {
         "text": SLACK_USER_MAP[userId] + "さん、お疲れ様でした！" + emoji
       }
     )
-  };
-};
+  }
+}
 
 function getGreetingMessage() {
   moment.tz.setDefault('Asia/Tokyo')
