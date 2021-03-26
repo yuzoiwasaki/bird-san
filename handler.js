@@ -33,13 +33,14 @@ module.exports.check_in = async (event) => {
 module.exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userId = parsedBody['user_id']
+  const emoji = getCheckOutEmoji()
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": SLACK_USER_MAP[userId] + "さん、お疲れ様でした！:clock9:"
+        "text": SLACK_USER_MAP[userId] + "さん、お疲れ様でした！" + emoji
       }
     )
   };
@@ -60,4 +61,9 @@ function getGreetingMessage() {
   }
 
   return message
+}
+
+function getCheckOutEmoji() {
+  const emojis = [':clock9:', ':tea:', ':coffee:']
+  return emojis[Math.floor(Math.random() * emojis.length)]
 }
