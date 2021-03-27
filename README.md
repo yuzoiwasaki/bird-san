@@ -4,6 +4,8 @@
 
 Slack app for [earlybirdslounge](https://earlybirdslounge.slack.com)
 
+![Screenshot](https://github.com/yuzoiwasaki/bird-san/blob/main/images/screenshot.png)
+
 ## Build Setup
 
 ```bash
