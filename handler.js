@@ -8,7 +8,7 @@ const {
   getCheckOutEmoji
 } = require('./slack')
 
-module.exports.check_in = async (event) => {
+exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
   const greetingMessage = getGreetingMessage()
@@ -24,7 +24,7 @@ module.exports.check_in = async (event) => {
   }
 }
 
-module.exports.check_out = async (event) => {
+exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
   const emoji = getCheckOutEmoji()
