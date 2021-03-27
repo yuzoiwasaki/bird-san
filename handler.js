@@ -11,8 +11,7 @@ const {
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
-  const greetingMessage = getGreetingMessage()
-  const text = userName + "さん、" + greetingMessage + ":hatched_chick:"
+  const text = createCheckInText(userName)
 
   return {
     statusCode: 200,
@@ -28,8 +27,7 @@ exports.check_in = async (event) => {
 exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
-  const emoji = getCheckOutEmoji()
-  const text = userName + "さん、お疲れ様でした！" + emoji
+  const text = createCheckOutText(userName)
 
   return {
     statusCode: 200,
@@ -57,4 +55,14 @@ function getGreetingMessage() {
   }
 
   return message
+}
+
+function createCheckInText(userName) {
+  const greetingMessage = getGreetingMessage()
+  return userName + "さん、" + greetingMessage + ":hatched_chick:"
+}
+
+function createCheckOutText(userName) {
+  const emoji = getCheckOutEmoji()
+  return userName + "さん、お疲れ様でした！" + emoji
 }
