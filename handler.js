@@ -12,13 +12,14 @@ exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
   const greetingMessage = getGreetingMessage()
+  const text = userName + "さん、" + greetingMessage + ":hatched_chick:"
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": userName + "さん、" + greetingMessage + ":hatched_chick:"
+        "text": text
       }
     )
   }
@@ -28,13 +29,14 @@ exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNamebyId(parsedBody['user_id'])
   const emoji = getCheckOutEmoji()
+  const text = userName + "さん、お疲れ様でした！" + emoji
 
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
         "response_type": "in_channel",
-        "text": userName + "さん、お疲れ様でした！" + emoji
+        "text": text
       }
     )
   }
