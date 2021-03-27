@@ -10,7 +10,7 @@ Slack app for [earlybirdslounge](https://earlybirdslounge.slack.com)
 # install dependencies
 $ npm i
 # serve at localhost:3000
-$ sls offline
+$ npm run dev
 ```
 
 ## Deploy
