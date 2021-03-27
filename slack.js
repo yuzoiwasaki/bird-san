@@ -8,7 +8,7 @@ const SLACK_USER_MAP = {
   'U01KT99P4JZ': 'ねこ'
 }
 
-exports.getUserNamebyId = function getUserNamebyId(userId) {
+exports.getUserNameById = function getUserNameById(userId) {
   return SLACK_USER_MAP[userId]
 }
 

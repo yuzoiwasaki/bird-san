@@ -4,13 +4,13 @@ const qs = require('querystring')
 const moment = require('moment')
 require('moment-timezone')
 const {
-  getUserNamebyId,
+  getUserNameById,
   getCheckOutEmoji
 } = require('./slack')
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
-  const userName = getUserNamebyId(parsedBody['user_id'])
+  const userName = getUserNameById(parsedBody['user_id'])
   const text = createCheckInText(userName)
 
   return {
@@ -26,7 +26,7 @@ exports.check_in = async (event) => {
 
 exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
-  const userName = getUserNamebyId(parsedBody['user_id'])
+  const userName = getUserNameById(parsedBody['user_id'])
   const text = createCheckOutText(userName)
 
   return {
