@@ -5,7 +5,8 @@ const SLACK_USER_MAP = {
   'U01GT30MT3L': 'ふくだ',
   'U01H41J15V4': 'ぱん',
   'U01J71N9ZCK': 'あきな',
-  'U01KT99P4JZ': 'ねこ'
+  'U01KT99P4JZ': 'ねこ',
+  'U01SN40TB99': 'りりぃ'
 }
 
 exports.getUserNameById = function getUserNameById(userId) {
