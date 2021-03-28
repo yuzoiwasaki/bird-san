@@ -12,14 +12,16 @@ const docClient = new aws.DynamoDB.DocumentClient({region: 'ap-northeast-1'})
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
-  const userName = getUserNameById(parsedBody['user_id'])
+  const userId = parsedBody['user_id']
+  const userName = getUserNameById(userId)
   const text = createCheckInText(userName)
 
+  const date = getToday()
   const params = {
     TableName: 'Activity',
     Item: {
-      userId: parsedBody['user_id'],
-      activityDate: '2021-03-28'
+      userId: userId,
+      activityDate: date
     }
   }
   docClient.put(params)
@@ -37,7 +39,8 @@ exports.check_in = async (event) => {
 
 exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
-  const userName = getUserNameById(parsedBody['user_id'])
+  const userId = parsedBody['user_id']
+  const userName = getUserNameById(userId)
   const text = createCheckOutText(userName)
 
   return {
@@ -66,6 +69,11 @@ function getGreetingMessage() {
   }
 
   return message
+}
+
+function getToday() {
+  moment.tz.setDefault('Asia/Tokyo')
+  return moment().format('YYYY-MM-DD')
 }
 
 function createCheckInText(userName) {
