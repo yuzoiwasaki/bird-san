@@ -7,11 +7,22 @@ const {
   getUserNameById,
   getCheckOutEmoji
 } = require('./slack')
+const AWS = require('aws-sdk')
+const docClient = new aws.DynamoDB.DocumentClient({region: 'ap-northeast-1'})
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userName = getUserNameById(parsedBody['user_id'])
   const text = createCheckInText(userName)
+
+  const params = {
+    TableName: 'Activity',
+    Item: {
+      userId: parsedBody['user_id'],
+      activityDate: '2021-03-28'
+    }
+  }
+  docClient.put(params)
 
   return {
     statusCode: 200,
