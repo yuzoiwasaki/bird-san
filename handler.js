@@ -24,13 +24,11 @@ exports.check_in = async (event) => {
       activityDate: date
     }
   }
-  docClient.put(params, function(err, data) {
-    if (err) {
-      console.log("Error", err)
-    } else {
-      console.log("Success", data)
-    }
-  })
+  try {
+    await docClient.put(params).promise()
+  } catch(error) {
+    console.log(error)
+  }
 
   return {
     statusCode: 200,
