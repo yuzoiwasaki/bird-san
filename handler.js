@@ -9,11 +9,11 @@ const { insertActivityLog } = require('./database')
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userId = parsedBody['user_id']
-  const userName = getUserNameById(userId)
-  const text = createCheckInText(userName)
 
   const date = getToday()
   insertActivityLog(userId, date)
+
+  const text = createCheckInText(userId)
 
   return {
     statusCode: 200,
@@ -29,8 +29,7 @@ exports.check_in = async (event) => {
 exports.check_out = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userId = parsedBody['user_id']
-  const userName = getUserNameById(userId)
-  const text = createCheckOutText(userName)
+  const text = createCheckOutText(userId)
 
   return {
     statusCode: 200,
@@ -65,12 +64,14 @@ function getToday() {
   return moment().format('YYYY-MM-DD')
 }
 
-function createCheckInText(userName) {
+function createCheckInText(userId) {
+  const userName = getUserNameById(userId)
   const greetingMessage = getGreetingMessage()
   return userName + "さん、" + greetingMessage + ":hatched_chick:"
 }
 
-function createCheckOutText(userName) {
+function createCheckOutText(userId) {
+  const userName = getUserNameById(userId)
   const emoji = getCheckOutEmoji()
   return userName + "さん、お疲れ様でした！" + emoji
 }
