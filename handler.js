@@ -3,12 +3,8 @@
 const qs = require('querystring')
 const moment = require('moment')
 require('moment-timezone')
-const {
-  getUserNameById,
-  getCheckOutEmoji
-} = require('./slack')
-const aws = require('aws-sdk')
-const docClient = new aws.DynamoDB.DocumentClient({region: 'ap-northeast-1'})
+const { getUserNameById, getCheckOutEmoji } = require('./slack')
+const { insertActivityLog } = require('./database')
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
@@ -17,18 +13,7 @@ exports.check_in = async (event) => {
   const text = createCheckInText(userName)
 
   const date = getToday()
-  const params = {
-    TableName: 'Activity',
-    Item: {
-      userId: userId,
-      activityDate: date
-    }
-  }
-  try {
-    await docClient.put(params).promise()
-  } catch(error) {
-    console.log(error)
-  }
+  insertActivityLog(userId, date)
 
   return {
     statusCode: 200,
