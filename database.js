@@ -15,3 +15,18 @@ exports.insertActivityLog = async function insertActivityLog(userId, activityDat
     console.log(error)
   }
 }
+
+exports.getActivityCount = async function getActivityCount(userId) {
+  const params = {
+    TableName: 'Activity',
+    Key: {
+      userId: userId
+    },
+    Select: 'COUNT'
+  }
+  try {
+    return await docClient.get(params).promise()
+  } catch(error) {
+    console.log(error)
+  }
+}

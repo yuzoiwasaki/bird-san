@@ -4,7 +4,7 @@ const qs = require('querystring')
 const moment = require('moment')
 require('moment-timezone')
 const { getUserNameById, getCheckOutEmoji } = require('./slack')
-const { insertActivityLog } = require('./database')
+const { insertActivityLog, getActivityCount } = require('./database')
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
@@ -67,6 +67,9 @@ function getToday() {
 function createCheckInText(userId) {
   const userName = getUserNameById(userId)
   const greetingMessage = getGreetingMessage()
+  const activityCount = getActivityCount(userId)
+  console.log(activityCount)
+
   return userName + "さん、" + greetingMessage + ":hatched_chick:"
 }
 
