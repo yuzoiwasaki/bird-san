@@ -25,8 +25,7 @@ exports.getActivityCount = async function getActivityCount(userId) {
     Select: 'COUNT'
   }
   try {
-    const result =  await docClient.get(params).promise()
-    return result
+    return await docClient.scan(params).promise()
   } catch(error) {
     console.log(error)
   }
