@@ -47,8 +47,8 @@ exports.check_in = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        "response_type": "in_channel",
-        "text": text
+        'response_type': 'in_channel',
+        'text': text
       }
     )
   }
@@ -63,8 +63,8 @@ exports.check_out = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        "response_type": "in_channel",
-        "text": text
+        'response_type': 'in_channel',
+        'text': text
       }
     )
   }
@@ -77,11 +77,11 @@ function getGreetingMessage() {
   let message
 
   if (hour >= 4 && hour < 12) {
-    message = 'おはようございます！'
+    message = 'おはようございます！:hatched_chick:'
   } else if (hour >= 12 && hour < 18) {
-    message = 'こんにちは！'
+    message = 'こんにちは！:rooster:'
   } else {
-    message = 'こんばんは！'
+    message = 'こんばんは！:owl:'
   }
 
   return message
@@ -116,8 +116,6 @@ function createCheckInText(userId, activityLogs) {
 
   if (MEMORIAL_NUMBERS.includes(activityCount)) {
     text += 'おめでとうございます！' + activityCount + '日目の朝活です:tada:'
-  } else {
-    text += ':hatched_chick:'
   }
 
   return text
@@ -126,5 +124,5 @@ function createCheckInText(userId, activityLogs) {
 function createCheckOutText(userId) {
   const userName = getUserNameById(userId)
   const emoji = getCheckOutEmoji()
-  return userName + "さん、お疲れ様でした！" + emoji
+  return userName + 'さん、お疲れ様でした！' + emoji
 }
