@@ -25,20 +25,25 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
+  let activityLogs
+
   var params = {
     TableName: 'Activity',
-    Key: {
-      userId: userId
+    KeyConditionExpression: '#key = :val',
+    ExpressionAttributeNames: {
+      '#key': 'userId'
+    },
+    ExpressionAttributeValues: {
+      ':val': userId
     }
   }
   try {
-    const activityLogs =  await docClient.get(params).promise()
-    console.log(activityLogs)
+    activityLogs =  await docClient.get(params).promise()
   } catch(error) {
     console.log(error)
   }
 
-  const text = createCheckInText(userId)
+  const text = createCheckInText(userId, activityLogs)
 
   return {
     statusCode: 200,
@@ -89,10 +94,20 @@ function getToday() {
   return moment().format('YYYY-MM-DD')
 }
 
-function createCheckInText(userId) {
+function createCheckInText(userId, activityLogs) {
   const userName = getUserNameById(userId)
   const greetingMessage = getGreetingMessage()
-  return userName + "さん、" + greetingMessage + ":hatched_chick:"
+  const activityCount = activityLogs['Count']
+
+  let text = userName + 'さん、' + greetingMessage
+
+  if (activityCount === 3) {
+    text += 'おめでとうございます！' + activityCount + '回目の朝活です:tada:'
+  } else {
+    text += ':hatched_chick:'
+  }
+
+  return text
 }
 
 function createCheckOutText(userId) {
