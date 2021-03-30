@@ -10,9 +10,9 @@ const docClient = new aws.DynamoDB.DocumentClient({region: 'ap-northeast-1'})
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userId = parsedBody['user_id']
-
   const date = getToday()
-  const params = {
+
+  let params = {
     TableName: 'Activity',
     Item: {
       userId: userId,
@@ -25,7 +25,7 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
-  const params = {
+  let params = {
     TableName: 'Activity',
     Key: {
       userId: userId
