@@ -25,6 +25,20 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
+  const params = {
+    TableName: 'Activity',
+    Key: {
+      userId: userId
+    },
+    Select: 'COUNT'
+  }
+  try {
+    const activityCount =  await docClient.get(params).promise()
+    console.log(activityCount)
+  } catch(error) {
+    console.log(error)
+  }
+
   const text = createCheckInText(userId)
 
   return {
@@ -79,21 +93,6 @@ function getToday() {
 function createCheckInText(userId) {
   const userName = getUserNameById(userId)
   const greetingMessage = getGreetingMessage()
-
-  const params = {
-    TableName: 'Activity',
-    Key: {
-      userId: userId
-    },
-    Select: 'COUNT'
-  }
-  try {
-    const activityCount =  await docClient.get(params).promise()
-    console.log(activityCount)
-  } catch(error) {
-    console.log(error)
-  }
-
   return userName + "さん、" + greetingMessage + ":hatched_chick:"
 }
 
