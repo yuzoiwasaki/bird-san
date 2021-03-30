@@ -39,6 +39,7 @@ exports.check_in = async (event) => {
   }
   try {
     activityLogs =  await docClient.get(params).promise()
+    console.log(activityLogs)
   } catch(error) {
     console.log(error)
   }
