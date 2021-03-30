@@ -29,12 +29,11 @@ exports.check_in = async (event) => {
     TableName: 'Activity',
     Key: {
       userId: userId
-    },
-    Select: 'COUNT'
+    }
   }
   try {
-    const activityCount =  await docClient.get(params).promise()
-    console.log(activityCount)
+    const activityLogs =  await docClient.get(params).promise()
+    console.log(activityLogs)
   } catch(error) {
     console.log(error)
   }
