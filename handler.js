@@ -12,7 +12,7 @@ exports.check_in = async (event) => {
   const userId = parsedBody['user_id']
   const date = getToday()
 
-  let params = {
+  var params = {
     TableName: 'Activity',
     Item: {
       userId: userId,
@@ -25,7 +25,7 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
-  let params = {
+  var params = {
     TableName: 'Activity',
     Key: {
       userId: userId
