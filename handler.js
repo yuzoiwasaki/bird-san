@@ -25,8 +25,6 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
-  let activityLogs
-
   var params = {
     TableName: 'Activity',
     KeyConditionExpression: '#key = :val',
@@ -38,8 +36,7 @@ exports.check_in = async (event) => {
     }
   }
   try {
-    activityLogs =  await docClient.query(params).promise()
-    console.log(activityLogs)
+    var activityLogs =  await docClient.query(params).promise()
   } catch(error) {
     console.log(error)
   }
@@ -100,10 +97,25 @@ function createCheckInText(userId, activityLogs) {
   const greetingMessage = getGreetingMessage()
   const activityCount = activityLogs['Count']
 
+  const MEMORIAL_NUMBERS = [
+    3,
+    5,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100
+  ]
+
   let text = userName + 'さん、' + greetingMessage
 
-  if (activityCount === 3) {
-    text += 'おめでとうございます！' + activityCount + '回目の朝活です:tada:'
+  if (MEMORIAL_NUMBERS.includes(activityCount)) {
+    text += 'おめでとうございます！' + activityCount + '日目の朝活です:tada:'
   } else {
     text += ':hatched_chick:'
   }
