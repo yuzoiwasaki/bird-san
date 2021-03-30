@@ -4,14 +4,26 @@ const qs = require('querystring')
 const moment = require('moment')
 require('moment-timezone')
 const { getUserNameById, getCheckOutEmoji } = require('./slack')
-const { insertActivityLog, getActivityCount } = require('./database')
+const aws = require('aws-sdk')
+const docClient = new aws.DynamoDB.DocumentClient({region: 'ap-northeast-1'})
 
 exports.check_in = async (event) => {
   const parsedBody = qs.parse(event.body)
   const userId = parsedBody['user_id']
 
   const date = getToday()
-  insertActivityLog(userId, date)
+  const params = {
+    TableName: 'Activity',
+    Item: {
+      userId: userId,
+      activityDate: date
+    }
+  }
+  try {
+    await docClient.put(params).promise()
+  } catch(error) {
+    console.log(error)
+  }
 
   const text = createCheckInText(userId)
 
@@ -67,9 +79,6 @@ function getToday() {
 function createCheckInText(userId) {
   const userName = getUserNameById(userId)
   const greetingMessage = getGreetingMessage()
-  const activityCount = getActivityCount(userId)
-  console.log(activityCount)
-
   return userName + "さん、" + greetingMessage + ":hatched_chick:"
 }
 
