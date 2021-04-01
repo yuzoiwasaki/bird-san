@@ -25,22 +25,7 @@ exports.check_in = async (event) => {
     console.log(error)
   }
 
-  var params = {
-    TableName: 'Activity',
-    KeyConditionExpression: '#key = :val',
-    ExpressionAttributeNames: {
-      '#key': 'userId'
-    },
-    ExpressionAttributeValues: {
-      ':val': userId
-    }
-  }
-  try {
-    var activityLogs =  await docClient.query(params).promise()
-  } catch(error) {
-    console.log(error)
-  }
-
+  const activityLogs = getActivityLogs(userId)
   const text = createCheckInText(userId, activityLogs)
 
   return {
@@ -67,6 +52,24 @@ exports.check_out = async (event) => {
         'text': text
       }
     )
+  }
+}
+
+async function getActivityLogs(userId) {
+  var params = {
+    TableName: 'Activity',
+    KeyConditionExpression: '#key = :val',
+    ExpressionAttributeNames: {
+      '#key': 'userId'
+    },
+    ExpressionAttributeValues: {
+      ':val': userId
+    }
+  }
+  try {
+    return await docClient.query(params).promise()
+  } catch(error) {
+    console.log(error)
   }
 }
 
